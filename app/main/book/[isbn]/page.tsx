@@ -24,7 +24,10 @@ export default function Main() {
         if (!loading) {
             fetch(baseURL + `/book/${isbn}`)
                 .then(response => response.json())
-                .then(data => setBook(data.message.volumeInfo))
+                .then(data => {
+                    console.log(data);
+                    setBook(data.message.volumeInfo)
+                })
                 .catch(error => {
                     console.error('Error fetching book data:', error);
                 });
@@ -32,11 +35,11 @@ export default function Main() {
     }, [user, loading]);
 
 
-    return !loading && book.title && (
-        <Container className={"w-[50vw] h-screen flex flex-col gap-10 mt-20"}>
-            <Box className={"flex gap-10"}>
+    return !loading && book.title ? (
+        <Container className={"sm:w-[50vw] items-center sm:items-start h-screen flex flex-col gap-10 mt-20 px-10"}>
+            <Box className={"flex flex-col sm:flex-row gap-10"}>
                 <BookImage image={book.imageLinks?.thumbnail} title={book.title} />
-                <Box className={"flex flex-col justify-between"}>
+                <Box className={"flex flex-col justify-between gap-10"}>
                     <div>
                         <p className={"text-2xl"}>{book.title}</p>
                         <div className={"flex"}>
@@ -67,5 +70,5 @@ export default function Main() {
                 </div>
             </Box>
         </Container>
-    );
+    ) : <p className={"text-center mt-25"}>Something went wrong...</p>;
 }

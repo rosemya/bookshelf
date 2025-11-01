@@ -31,12 +31,12 @@ export default function Bookshelf() {
         <Container>
             <PageTitle title={"Favorites"} />
             {books.length ? (
-                <Box className={"flex gap-10"}>
+                <Box className={"flex flex-wrap gap-10 justify-center"}>
                     {books.map((book: any, i: number) => (
                         <div key={i} className={"flex flex-col"}>
                             <Link href={`/main/book/${book.isbn}`} className={"cursor-pointer"}>
                                 <BookImage image={book.image} title={book.title} />
-                                <p className={"font-bold"}>{book.title}</p>
+                                <p className={"font-bold w-[200px]"}>{book.title}</p>
                                 <p>{book.author}</p>
                             </Link>
                             <RemoveFavorite isbn={book.isbn} user={user} books={books} setBooks={setBooks} />

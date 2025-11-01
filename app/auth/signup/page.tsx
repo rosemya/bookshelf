@@ -58,7 +58,7 @@ const SignUp = () => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit} className={"flex flex-col justify-center items-center gap-10"}>
+        <form onSubmit={formik.handleSubmit} className={"w-full flex flex-col justify-center items-center gap-10"}>
             <PageTitle title={"Sign Up"}/>
             {error && <p className={"text-red-500"}>{error}</p>}
             <TextField
@@ -67,7 +67,7 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.firstName && Boolean(formik.errors.firstName)}
                 helperText={formik.touched.firstName && formik.errors.firstName}
-                className={"w-[500px]"}
+                className={"w-[80vw] lg:w-[80%]"}
             />
             <TextField
                 name={"lastName"}
@@ -75,7 +75,7 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.lastName && Boolean(formik.errors.lastName)}
                 helperText={formik.touched.lastName && formik.errors.lastName}
-                className={"w-[500px]"}
+                className={"w-[80vw] lg:w-[80%]"}
             />
             <TextField
                 name={"email"}
@@ -84,7 +84,7 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
-                className={"w-[500px]"}
+                className={"w-[80vw] lg:w-[80%]"}
             />
             <TextField
                 name={"password"}
@@ -93,10 +93,10 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.password && Boolean(formik.errors.password)}
                 helperText={formik.touched.password && formik.errors.password}
-                className={"w-[500px]"}
+                className={"w-[80vw] lg:w-[80%]"}
             />
 
-            <Button variant={"outlined"} type={"submit"} className={"w-[500px] h-[50px]"}>Sign Up</Button>
+            <Button variant={"outlined"} type={"submit"} className={"w-[80vw] lg:w-[80%] h-[50px]"}>Sign Up</Button>
             <Button href={"/auth/login"}>Login</Button>
         </form>
     );

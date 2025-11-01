@@ -39,7 +39,7 @@ const Login = () => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit} className={"flex flex-col justify-center items-center gap-10"}>
+        <form onSubmit={formik.handleSubmit} className={"w-full flex flex-col justify-center  gap-10"}>
             <PageTitle title={"Login"}/>
             {error && <p className={"text-red-500"}>{error}</p>}
             <div className={"flex flex-col justify-center items-center gap-10"}>
@@ -49,21 +49,21 @@ const Login = () => {
                     error={Boolean(formik.errors.email) && formik.touched.email}
                     helperText={formik.errors.email && formik.touched.email}
                     onChange={formik.handleChange}
-                    className={"w-[500px]"}
+                    className={"w-[90vw] lg:w-[80%]"}
                 />
-                <div className={"flex flex-col text-right gap-2"}>
+                <div className={"flex flex-col text-right gap-2 w-full items-center"}>
                     <TextField
                         name={"password"}
                         placeholder={"Password"}
                         type={"password"}
                         error={Boolean(formik.errors.password) && formik.touched.password}
                         onChange={formik.handleChange}
-                        className={"w-[500px]"}
+                        className={"w-[90vw] lg:w-[80%]"}
                     />
-                    <Link href={"/"} className={"text-yellow-500"}>Forgot Password?</Link>
+                    {/*<Link href={"/"} className={"text-yellow-500 text-end"}>Forgot Password?</Link>*/}
                 </div>
 
-                <Button variant={"outlined"} type={"submit"} className={"w-[500px] h-[50px]"}>Login</Button>
+                <Button variant={"outlined"} type={"submit"} className={"w-[90vw] lg:w-[80%] h-[50px]"}>Login</Button>
                 <Button href={"/auth/signup"}>Sign Up</Button>
             </div>
         </form>

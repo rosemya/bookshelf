@@ -45,7 +45,8 @@ export default function Category() {
                 fetch(`https://www.googleapis.com/books/v1/volumes?q=${book.title.replaceAll(" ", "+")}${book.author ? `+inauthor:${book.author.toLowerCase().replaceAll(" ", "+")}` : ""}`)
                     .then(res => res.json())
                     .then(result => {
-                        const items = result.message.items;
+                        console.log(result);
+                        const items = result.items;
                         items.forEach((item: any) => {
                             const volumeInfo = item.volumeInfo;
 

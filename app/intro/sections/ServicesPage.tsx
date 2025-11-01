@@ -6,10 +6,10 @@ import {PageTitle} from "@/app/components/PageTitle";
 
 export const ServicesPage = () => {
     const sectionItem = (Icon: IconType, title: string, text: string) => (
-        <div className={`flex flex-col items-center justify-center w-1/2 h-1/2 gap-5`}>
+        <div className={`flex flex-col items-center justify-center text-center w-1/2 h-1/2 gap-5`}>
             <Icon size={50} color={"892602"} />
             <p className={" text-xl text-zinc-900"}>{title}</p>
-            <p className={"text-[#7C7C7C] lg:w-[250px] text-center"}>{text}</p>
+            <p className={"text-[#7C7C7C] lg:w-[250px]"}>{text}</p>
         </div>
     );
 
