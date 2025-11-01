@@ -60,7 +60,7 @@ const SignUp = () => {
     return (
         <form onSubmit={formik.handleSubmit} className={"w-full flex flex-col justify-center items-center gap-10"}>
             <PageTitle title={"Sign Up"}/>
-            {error && <p className={"text-red-500"}>{error}</p>}
+            {error && <p className={"text-red-500 text-center"}>{error}</p>}
             <TextField
                 name={"firstName"}
                 placeholder={"First Name"}

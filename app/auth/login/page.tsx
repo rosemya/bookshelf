@@ -41,7 +41,7 @@ const Login = () => {
     return (
         <form onSubmit={formik.handleSubmit} className={"w-full flex flex-col justify-center  gap-10"}>
             <PageTitle title={"Login"}/>
-            {error && <p className={"text-red-500"}>{error}</p>}
+            {error && <p className={"text-red-500 text-center"}>{error}</p>}
             <div className={"flex flex-col justify-center items-center gap-10"}>
                 <TextField
                     name={"email"}
