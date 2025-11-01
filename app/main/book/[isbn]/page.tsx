@@ -35,7 +35,7 @@ export default function Main() {
     }, [user, loading]);
 
 
-    return !loading && book.title ? (
+    return !loading && book.title && (
         <Container className={"sm:w-[50vw] items-center sm:items-start h-screen flex flex-col gap-10 mt-20 px-10"}>
             <Box className={"flex flex-col sm:flex-row gap-10"}>
                 <BookImage image={book.imageLinks?.thumbnail} title={book.title} />
@@ -70,5 +70,5 @@ export default function Main() {
                 </div>
             </Box>
         </Container>
-    ) : <p className={"text-center mt-25"}>Something went wrong...</p>;
+    );
 }
