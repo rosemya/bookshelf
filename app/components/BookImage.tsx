@@ -4,7 +4,6 @@ export const BookImage = ({image, title}: { image?: string | undefined, title: s
     if (image) {
         return (
             <div className={"relative w-[150px] h-[200px]"}>
-                {/*<Image src={image} alt={title || "Book Cover"} fill sizes={"(max-width: 150px), (max-width: 200px)"} priority />*/}
                 <img src={image} alt={title || "Book Cover"} className={"object-cover"} />
             </div>
         );

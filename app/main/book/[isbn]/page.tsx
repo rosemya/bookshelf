@@ -14,30 +14,53 @@ export default function Main() {
     const {isbn} = useParams<{ isbn: string; }>();
     const { user, loading } = useContext(AuthContext);
     const [book, setBook] = useState<any>({});
+    const [favoriteButton, setFavoriteButton] = useState(true);
+    const [loadFav, setLoadFav] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !user) {
-            router.push('/auth/login');
-        }
+        // if (!loading && !user) {
+        //     router.push('/auth/login');
+        // }
 
         if (!loading) {
             fetch(baseURL + `/book/${isbn}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    setBook(data.message.volumeInfo)
+                    setBook(data.message.volumeInfo);
+
+                    fetch(baseURL + `/list/${user?.uid}/favorites`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const list = data.message;
+                            console.log("list", list);
+
+                            for (let i = 0; i < list.length; i++) {
+                                if (list[i].isbn === isbn) {
+                                    console.log("true", isbn)
+                                    setFavoriteButton(false);
+                                }
+                            }
+
+                            setLoadFav(false);
+
+                        }).catch(e => {
+                        console.error(e)
+                    })
                 })
                 .catch(error => {
                     console.error('Error fetching book data:', error);
                 });
+
+
         }
-    }, [user, loading]);
+    }, [user, loading, loadFav, isbn, ]);
 
 
     return !loading && book.title && (
         <Container className={"sm:w-[50vw] items-center sm:items-start h-screen flex flex-col gap-10 mt-20 px-10"}>
-            <Box className={"flex flex-col sm:flex-row gap-10"}>
+            <div className={"flex flex-col sm:flex-row gap-10"}>
                 <BookImage image={book.imageLinks?.thumbnail} title={book.title} />
                 <Box className={"flex flex-col justify-between gap-10"}>
                     <div>
@@ -52,9 +75,9 @@ export default function Main() {
                         </div>
                     </div>
 
-                    <AddToFavorite book={book} isbn={isbn} />
+                    {!loadFav && <AddToFavorite book={book} isbn={isbn} favorite={favoriteButton}/>}
                 </Box>
-            </Box>
+            </div>
 
             <Box>
                 <p className={"text-3xl mb-10"}>Description</p>

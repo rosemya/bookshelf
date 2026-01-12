@@ -1,14 +1,14 @@
 'use client';
 
-import {useState} from "react";
-import {useFormik} from "formik";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
+import {useFormik} from "formik";
+import {useState} from "react";
 import {useRouter} from "next/navigation";
-import {signInWithEmailAndPassword} from "firebase/auth";
 
 import {SignupSchema} from "@/app/auth/AuthValidation";
-import {PageTitle} from "@/app/components/PageTitle";
+import {SectionTitle} from "@/app/components/SectionTitle";
 import {auth, baseURL} from "@/app/config";
 
 const SignUp = () => {
@@ -34,40 +34,46 @@ const SignUp = () => {
         firstName: string
         lastName: string
     }) => {
-        fetch(baseURL + "/user", {
+        console.log(email);
+
+        fetch(`${baseURL}/user`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                email,
-                password,
-                firstName,
-                lastName
-            })
-        })
-            .then(response => response.json())
-            .then(() => {
-                // Sign in the user to firebase locally
+            body: JSON.stringify({email, password, firstName, lastName})
+        }).then(res => res.json())
+            .then(result => {
+                if (result.error) {
+                    setError(result.error)
+                }
+
                 signInWithEmailAndPassword(auth, email, password)
                     .then(() => {
-                        router.push("/main");
+                        router.push("/main")
+                    })
+                    .catch(e => {
+                        console.log(e)
+                        setError("Something went wrong try signing in instead!")
                     })
             })
-            .catch(() => setError("An error has occurred please try again"));
+            .catch((e) => {
+                console.error(e);
+                setError("Something went wrong please try again!")
+            });
     }
 
     return (
-        <form onSubmit={formik.handleSubmit} className={"w-full flex flex-col justify-center items-center gap-10"}>
-            <PageTitle title={"Sign Up"}/>
+        <form onSubmit={formik.handleSubmit} className={"flex flex-col justify-center md:w-[500px] gap-10"}>
+            <SectionTitle title={"Sign Up"}/>
             {error && <p className={"text-red-500 text-center"}>{error}</p>}
+
             <TextField
                 name={"firstName"}
                 placeholder={"First Name"}
                 onChange={formik.handleChange}
                 error={formik.touched.firstName && Boolean(formik.errors.firstName)}
                 helperText={formik.touched.firstName && formik.errors.firstName}
-                className={"w-[80vw] lg:w-[80%]"}
             />
             <TextField
                 name={"lastName"}
@@ -75,7 +81,6 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.lastName && Boolean(formik.errors.lastName)}
                 helperText={formik.touched.lastName && formik.errors.lastName}
-                className={"w-[80vw] lg:w-[80%]"}
             />
             <TextField
                 name={"email"}
@@ -84,7 +89,6 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
-                className={"w-[80vw] lg:w-[80%]"}
             />
             <TextField
                 name={"password"}
@@ -93,10 +97,9 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.password && Boolean(formik.errors.password)}
                 helperText={formik.touched.password && formik.errors.password}
-                className={"w-[80vw] lg:w-[80%]"}
             />
 
-            <Button variant={"outlined"} type={"submit"} className={"w-[80vw] lg:w-[80%] h-[50px]"}>Sign Up</Button>
+            <Button variant={"outlined"} type={"submit"} className={"w-full h-[50px]"}>Sign Up</Button>
             <Button href={"/auth/login"}>Login</Button>
         </form>
     );
