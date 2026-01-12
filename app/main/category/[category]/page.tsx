@@ -2,7 +2,7 @@
 
 import {useParams, useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
-import {Container, Box, Button, CircularProgress} from "@mui/material";
+import {Container, Box, Button, CircularProgress, Typography} from "@mui/material";
 
 import {baseURL} from "@/app/config";
 import {PageTitle} from "@/app/components/PageTitle";
@@ -81,26 +81,28 @@ export default function Category() {
         <Container className={"h-full flex flex-col items-center"}>
             <PageTitle title={category} />
 
-            <Box className={"flex flex-wrap justify-center gap-7"}>
-                {books.map((book: any, i) => {
-                    if (book.cover_edition_key) {
-                        return (
-                            <Box key={i} className={"w-[150px] cursor-pointer"} onClick={() => goToBook(book)}>
-                                <BookImage image={`https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`} title={book.title} />
-                                <p className={"font-bold"}>{book.title}</p>
-                                <p>{book.authors[0].name}</p>
-                            </Box>
-                        )
-                    }
-                })}
-            </Box>
-
             {loading ? (
                 <div className={"flex flex-col items-center"}>
                     <CircularProgress />
                     <p className={"text-center"}>Loading...</p>
                 </div>
             ) : undefined}
+
+            <Box className={"flex flex-wrap justify-center gap-7"}>
+                {books.map((book: any, i) => {
+                    if (book.cover_edition_key) {
+                        return (
+                            <div key={i} className={"cursor-pointer w-[150px] h-[400px] flex flex-col justify-around"} onClick={() => goToBook(book)}>
+                                <BookImage image={`https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`} title={book.title} />
+                                <div>
+                                    <Typography noWrap={true} fontWeight={700}>{book.title}</Typography>
+                                    <p>{book.authors[0].name}</p>
+                                </div>
+                            </div>
+                        )
+                    }
+                })}
+            </Box>
 
             {loading ? undefined : <Button onClick={getMoreBooks}>Load More</Button>}
 
