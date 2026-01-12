@@ -13,7 +13,7 @@ export default function MainLayout({children,}: { children: React.ReactNode; }) 
         auth.signOut().then(() => {
             router.push("/");
         }).catch((error) => {
-                console.log(error);
+            console.log(error);
         })
     }
 
@@ -23,8 +23,8 @@ export default function MainLayout({children,}: { children: React.ReactNode; }) 
                 <Link href={"/main"} className={"text-3xl font-bold"}>Book<span className={"text-[#FFAE00]"}>Shelf</span></Link>
                 <div className={"flex items-center gap-5"}>
                     <Link href="/main" className={"hidden md:block"}>Explore</Link>
-                    <Link href="/main/bookshelf">Bookshelf</Link>
-                    <Button onClick={signOut} className={"cursor-pointer"}>Sign Out</Button>
+                    <Link href="/main/bookshelf" className={"hidden md:block"}>Bookshelf</Link>
+                    <Button onClick={signOut}>Sign Out</Button>
                 </div>
             </div>
             {children}
